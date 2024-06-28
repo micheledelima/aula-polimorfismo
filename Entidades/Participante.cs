@@ -1,4 +1,4 @@
-﻿namespace polimorfismo
+﻿namespace polimorfismo.Entidades
 {
     public abstract class Participante
     {

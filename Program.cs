@@ -1,66 +1,104 @@
 ﻿using polimorfismo;
+using polimorfismo.Entidades;
+using static polimorfismo.Entidades.Atividade;
 
-var conferencia = 
-    new Conferencia
+Console.WriteLine("Cadastro de Evento");
+
+Console.WriteLine("Digite seu nome: ");
+var nome = Console.ReadLine();
+Console.WriteLine($"Bem vindo {nome}");
+
+Console.WriteLine("Se você é palestrante digite: 1." +
+    " Ou espectador digite: 2?");
+var tipoParticipante = int.Parse(Console.ReadLine());
+var palestrante = new Palestrante();
+var espectador = new Espectador();
+
+if (tipoParticipante == 1)
+{
+    palestrante.Nome = nome;
+    Console.WriteLine("Deseja cadatrar um workshop digite: 1 ou conferencia digite: 2? ");
+    var tipoEvento = int.Parse(Console.ReadLine());
+    if (tipoEvento == 1)
     {
-        Nome = "Conferência dev's .Net",
-        Data = new DateTime(2024, 10, 15),
-        Local = "Ambevtech",
-        CapacidadeMaxima = 200
-    };
+        Console.WriteLine("Digite o nome do workshop: ");
+        var nomeWorkshop = Console.ReadLine();
+        Console.WriteLine("Digite o descrição do workshop: ");
+        var descricao = Console.ReadLine();
 
-var workshop = 
-    new Workshop
+        var evento = new Evento()
+        {
+            Atividades = new List<Atividade>()
+            {
+                new Atividade
+                {
+                    Nome = nomeWorkshop,
+                    Descricao = descricao,
+                    Status = Atividade.StatusAtividade.Agendada
+                }
+            }
+        };
+        Console.WriteLine($"Cadastro Realizado com sucesso!{evento}");
+    }
+    else
     {
-        Nome = "Workshop de Teste de Unidade",
-        Data = new DateTime(2024, 11, 20),
-        Local = "Ambevtech",
-        CapacidadeMaxima = 50
-    };
+        Console.WriteLine("Digite o nome da Conferencia: ");
+        var nomeConferencia = Console.ReadLine();
+        Console.WriteLine("Digite o descrição do Conferencia: ");
+        var descricao = Console.ReadLine();
 
-var palestrante = 
-    new Palestrante 
-    { 
-        Nome = "Talita" 
-    };
-
-var espectador = 
-    new Espectador 
-    { 
-        Nome = "Jenny" 
-    };
-
-var espectador1 =
-    new Espectador
+        var evento = new Evento()
+        {
+            Atividades = new List<Atividade>()
+            {
+                new Atividade
+                {
+                    Nome = nomeConferencia,
+                    Descricao = descricao,
+                    Status = Atividade.StatusAtividade.Agendada
+                }
+            }
+        };
+        Console.WriteLine($"Cadastro Realizado com sucesso!{evento}");
+    }
+}
+else
+{
+    espectador.Nome = nome;
+    var lista = ListarAtividades();
+    foreach ( var item in lista)
     {
-        Nome = "Mi"
-    };
+        Console.WriteLine($"Atividade: {item.Nome} - {item.Descricao} - ID: {item.Id} - {item.Tipo}");
+    }
+}
 
-
-
-var palestra = 
-    new Atividade
+static List<Atividade> ListarAtividades()
+{
+    var eventos = new Evento()
     {
-        Nome = "Fundamentos POO",
-        Descricao = "Fundamentos da programação orientada a objetos",
-        Status = Atividade.StatusAtividade.Agendada
+
+        Atividades = new List<Atividade>()
+            {
+                new Atividade
+                {
+                    Tipo = TipoEvento.Conferencia,
+                    Id = 1,
+                    Nome = "ahuahauhau",
+                    Descricao = "ahuahauhau",
+                    Status = Atividade.StatusAtividade.Agendada
+                },
+                new Atividade
+                {
+                    Tipo = TipoEvento.Wokrshop,
+                    Id = 2,
+                    Nome = "ahuahauhau",
+                    Descricao = "ahuahauhau",
+                    Status = Atividade.StatusAtividade.Agendada
+                }
+            }
     };
-
-conferencia.Atividades.Add(palestra);
-
-conferencia.ValidarCapcidadeParticipante(palestrante);
-conferencia.ValidarCapcidadeParticipante(espectador);
-conferencia.ValidarCapcidadeParticipante(espectador1);
-
-//depois de validar add
-palestrante.Participar(conferencia);
-espectador.Participar(workshop);
-
-conferencia.Iniciar();
-conferencia.Pausar();
-workshop.Iniciar();
-
-workshop.Concluir();
+    return eventos.Atividades;
+}
 
 Console.WriteLine("Pressione qualquer tecla para finalizar...");
 Console.ReadKey();

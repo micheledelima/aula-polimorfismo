@@ -1,18 +1,20 @@
-﻿namespace polimorfismo
+﻿namespace polimorfismo.Entidades
 {
-    public abstract class Evento
+    public class Evento
     {
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
         public DateTime Data { get; set; }
-        public string Local { get; set; }
+        public string? Local { get; set; }
         public int CapacidadeMaxima { get; set; }
         public List<Atividade> Atividades { get; set; } = [];
         public List<Participante> Participantes { get; set; } = [];
 
-        public abstract void Iniciar();
-        public abstract void Pausar();
-        public abstract void Concluir();
-        public abstract void Cancelar();
+
+
+        public void Iniciar() { }
+        public void Pausar() { }
+        public void Concluir() { }
+        public void Cancelar() { }
 
         public void ValidarCapcidadeParticipante(Participante participante)
         {
